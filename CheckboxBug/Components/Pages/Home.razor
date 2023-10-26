@@ -1,0 +1,43 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<form method="post" @formname="radio">
+    <AntiforgeryToken/>
+    @* <ValidationSummary Model="Model" /> *@
+    <fieldset>
+        <legend>Radio button bug</legend>
+
+        <InputRadioGroup Name="color" @bind-Value="Model!.Color">
+            <div>
+                <label>Red</label>
+                <InputRadio Name="color" Value="red" />
+            </div>
+            <div>
+
+                <label>Blue</label>
+                <InputRadio Name="color" Value="blue" />
+            </div>
+        </InputRadioGroup>
+        <button type="submit">Submit</button>
+    </fieldset>
+</form>
+
+@code {
+    public class RadioModel
+    {
+        public string? Color { get; set; } = blue;
+    }
+
+    public const string red = "red";
+    public const string blue = "blue";
+
+    [SupplyParameterFromForm]
+    public RadioModel? Model { get; set; }
+
+    protected override void OnInitialized() => Model ??= new();
+} 
